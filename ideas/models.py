@@ -24,14 +24,15 @@ class Post(models.Model):
     def __str__(self):
         return self.post_text
 
+class Challenge(Post):
+    categories = models.ManyToManyField(Category)
+
 class Idea(Post):
     votes = models.IntegerField(default=0)
     tags = models.ManyToManyField(Tag,related_name='ideas')
     version = models.IntegerField(default=0)
-
-class Challenge(Post):
-    categories = models.ManyToManyField(Category)
-
+    challenges = models.ManyToManyField(Challenge)
+    
 class Comments(models.Model):
     idea = models.ForeignKey(Idea, on_delete=models.CASCADE)
     comment_text = models.CharField(max_length=200)
