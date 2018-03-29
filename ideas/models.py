@@ -17,7 +17,7 @@ class Post(models.Model):
     post_text = models.CharField(max_length=1000)
     pub_date = models.DateTimeField('date published')
     submitter = models.ForeignKey(User, on_delete=models.CASCADE)
-    
+
     class Meta:
         abstract = True
 
@@ -32,7 +32,8 @@ class Idea(Post):
     tags = models.ManyToManyField(Tag,related_name='ideas')
     version = models.IntegerField(default=0)
     challenges = models.ManyToManyField(Challenge)
-    
+    linked_ideas = models.ManyToManyField('self')
+
 class Comments(models.Model):
     idea = models.ForeignKey(Idea, on_delete=models.CASCADE)
     comment_text = models.CharField(max_length=200)
