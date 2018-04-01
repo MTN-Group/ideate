@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from . import serializers
+from ideas.models import Idea, Category, Category, Tag, Comments
 
 
 def index(request):
@@ -23,3 +24,9 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     queryset = Group.objects.all()
     serializer_class = serializers.GroupSerializer
+
+class IdeaViewsSet(viewsets.ModelViewSet):
+    queryset = Idea.objects.all().order_by('pub_date')
+    serializer_class = serializers.IdeaSerializer
+
+    

@@ -5,7 +5,7 @@ User = get_user_model()
 class Tag(models.Model):
     word        = models.CharField(max_length=35)
     slug        = models.CharField(max_length=250)
-    created_at  = models.DateTimeField(auto_now_add=False)
+    created_at  = models.DateTimeField(auto_now_add=True)
 
 class Category ( models.Model ):
     name = models.CharField( max_length=100 )
@@ -15,14 +15,14 @@ class Category ( models.Model ):
 class Post(models.Model):
     title = models.CharField(max_length=30)
     post_text = models.CharField(max_length=1000)
-    pub_date = models.DateTimeField('date published')
+    pub_date = models.DateTimeField(auto_now_add=True)
     submitter = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         abstract = True
 
     def __str__(self):
-        return self.post_text
+        return self.title
 
 class Challenge(Post):
     categories = models.ManyToManyField(Category)
