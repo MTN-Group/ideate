@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from ideas.models import Idea, Category, Category, Tag, Comments
+from ideas.models import Idea, Category, Category, Comments
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):

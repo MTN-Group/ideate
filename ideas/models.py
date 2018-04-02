@@ -1,16 +1,16 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-User = get_user_model()
+from taggit.managers import TaggableManager
 
-class Tag(models.Model):
-    word        = models.CharField(max_length=35)
-    slug        = models.CharField(max_length=250)
-    created_at  = models.DateTimeField(auto_now_add=True)
+User = get_user_model()
 
 class Category ( models.Model ):
     name = models.CharField( max_length=100 )
     parent = models.ForeignKey('self', null=True, blank=True, related_name='children', on_delete=models.CASCADE)
     slug = models.SlugField(unique=True)
+
+    def __str__(self):
+        return self.name
 
 class Post(models.Model):
     title = models.CharField(max_length=30)
@@ -29,10 +29,10 @@ class Challenge(Post):
 
 class Idea(Post):
     votes = models.IntegerField(default=0)
-    tags = models.ManyToManyField(Tag,related_name='ideas')
+    tags = TaggableManager()
     version = models.IntegerField(default=0)
-    challenges = models.ManyToManyField(Challenge)
-    linked_ideas = models.ManyToManyField('self')
+    challenges = models.ManyToManyField(Challenge, blank=True)
+    linked_ideas = models.ManyToManyField('self', blank=True, related_name='ideas')
 
 class Comments(models.Model):
     idea = models.ForeignKey(Idea, on_delete=models.CASCADE)
