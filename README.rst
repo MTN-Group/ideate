@@ -1,4 +1,4 @@
-Ideate - the API driven Idea Managemennt platform
+Ideate - the API driven Idea Management platform
 ====================================
 
 Quick start
@@ -8,6 +8,7 @@ Run Ideate::
 
     - virtualenv ideate
     - cd ideate
+    - git clone git@github.com:MTN-Group/ideate.git
     - source bin/activate
     - pip install djangorestframework
     - pip install markdown       # Markdown support for the browsable API.
